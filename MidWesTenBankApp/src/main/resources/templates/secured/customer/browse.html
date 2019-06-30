@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{secured/layouts/master-page-layout}">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product/product.css}" />
+    <title>MidWesTen Bank - Browsing List of Products</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div>
+        <span style="font-size: 1.5em">List of Customers in stock</span>
+        <span style="float:right;">
+                <a class="btn btn-outline-primary btn-lg" href="/midwesten/secured/customer/new">Add a New Customer</a>
+            </span>
+    </div>
+    <p>&nbsp;</p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Customer Number</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Middle Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Contact Phone Number</th>
+            <th scope="col">Date of birth</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Alternative non-obstrusive js solution for <tr onclick>:
+            HTML markup: <tr data-href="some-url">
+            JS function using JQuery: $('tr[data-href]').on("click", function() {
+                                        document.location = $(this).data('href');
+                                    });
+         -->
+        <!--<tr class="datarow" th:each="customer,iterStat : ${products}" th:onclick="@{document.location='/prodmgmt/products/edit/{productId}'(productId=${customer.productId})}">-->
+        <tr class="datarow" th:each="customer,iterStat : ${customers}" th:onclick="@{document.location='#'}">
+            <th scope="row" th:text="${iterStat.count}+'.'"></th>
+            <td th:text="${customer.customerNumber}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.middleName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.emailAddress}"></td>
+            <td th:text="${customer.contactPhoneNumber}"></td>
+            <td th:text="${customer.dateOfBirth}"></td>
+        </tr>
+        </tbody>
+    </table>
+</th:block>
+
+<th:block layout:fragment="footer"></th:block>
+
+</body>
+</html>
